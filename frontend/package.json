@@ -1,0 +1,9 @@
+{
+  "name": "letroso-frontend",
+  "version": "0.1.0",
+  "description": "Letroso Game",
+  "main": "src/main.js",
+  "author": "mcmacker4",
+  "license": "GPL-3.0",
+  "private": true
+}
