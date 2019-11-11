@@ -3,6 +3,8 @@ import * as bodyparser from 'koa-bodyparser'
 import * as Router from 'koa-router'
 
 import { game } from './routes/game'
+import { createServer } from 'http'
+import { createWsServer } from './websocket'
 
 const app = new Koa()
 
@@ -10,11 +12,7 @@ app.use(bodyparser())
 
 app.use(async (ctx, next) => {
     try {
-        const result = await next();
-        ctx.body = {
-            status: 'Ok',
-            result
-        }
+        await next()
     } catch (err) {
         ctx.status = 400
         ctx.body = {
@@ -29,4 +27,8 @@ const applyRouter = (router: Router) =>
 
 applyRouter(game)
 
-app.listen(8080)
+const httpServer = createServer(app.callback())
+const wsServer = createWsServer(httpServer)
+
+wsServer.on('listening', () => console.log("WebSocket Server Listening."))
+httpServer.listen(8080, () => console.log("HTTP Server Listening."))
