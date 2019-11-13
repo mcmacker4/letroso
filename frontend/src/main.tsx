@@ -1,5 +1,6 @@
-import { h, render, Component } from 'preact'
-import { createStore, Store, Action } from 'redux'
+import { h, render } from 'preact'
+import { useCallback } from 'preact/hooks'
+import { createStore, Action } from 'redux'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 
 interface State {
@@ -16,11 +17,19 @@ const store = createStore((oldState?: State, action?: Action) => {
     return state
 })
 
+function getCount(state: State) {
+    return state.count
+}
+
 function CountView() {
-    const count = useSelector((state: State) => state.count)
-    const incr = useDispatch()
+    const count = useSelector(getCount)
+    const dispatch = useDispatch()
+    const increment = useCallback(() => dispatch('INCR'), [dispatch])
     return (
-        <h3>{count}</h3>
+        <div>
+            <h3>Count: {count}</h3>
+            <button onClick={increment}>Increment</button>
+        </div>
     )
 }
 
@@ -31,7 +40,5 @@ function App() {
         </Provider>
     )
 }
-
-console.log("Hello World")
 
 render(<App />, document.body)

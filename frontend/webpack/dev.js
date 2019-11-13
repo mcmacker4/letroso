@@ -7,14 +7,14 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'source-map',
     devServer: {
-        port: 3000,
+        port: 8080,
         proxy: {
             '/play': {
-                target: 'ws://localhost:8080',
+                target: 'ws://localhost:8081',
                 ws: true
             },
             'api': {
-                target: 'http://localhost:8080'
+                target: 'http://localhost:8081'
             }
         }
     }
