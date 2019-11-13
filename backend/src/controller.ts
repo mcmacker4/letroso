@@ -73,10 +73,10 @@ export function rejoinGame(id: string, name: string, socket: WebSocket) {
         })
         socket.send(JSON.stringify({ status: "REJOIN_OK" }))
     } else {
-        joinGame(id, name, socket)
+        socket.send(JSON.stringify({ error: "Username not found in game." }))
     }
 }
 
 function execMessage(msg: WsMessage, game: Game) {
-
+    
 }

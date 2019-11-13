@@ -22,8 +22,9 @@ app.use(async (ctx, next) => {
     }
 })
 
-const applyRouter = (router: Router) =>
+const applyRouter = (router: Router) => {
     app.use(router.routes()).use(router.allowedMethods())
+}
 
 applyRouter(game)
 

@@ -2,7 +2,7 @@ import * as Router from 'koa-router'
 import { newGame } from '../controller'
 import * as store from '../store'
 
-export const game = new Router({ prefix: '/game' })
+export const game = new Router({ prefix: '/api/game' })
 
 
 /*
